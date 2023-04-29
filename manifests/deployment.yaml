@@ -1,0 +1,27 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: SampleWebApp
+  namespace: jayhyuklee-dev
+  labels:
+    app: SampleWebApp
+spec:
+  selector:
+    matchLabels:
+      app: SampleWebApp
+  template: 
+    metadata:
+      labels:
+        app: SampleWebApp
+    spec:
+      containers:
+        - name: SampleWebApp
+          image: image-registry.openshift-image-registry.svc:5000/jayhyuklee-dev/SampleWebApp
+          ports:
+            - containerPort: 8080
+              protocol: "TCP"
+  replicas: 2 
+  strategy: 
+    type: RollingUpdate
+  revisionHistoryLimit: 2 
+  minReadySeconds: 0 
